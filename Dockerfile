@@ -1,3 +1,5 @@
+#!/bin/sh
+
 # Pobranie obrazu pythonowego
 FROM python:3.9-slim
 # Ustawienie folderu /usr/src/app
@@ -19,3 +21,9 @@ RUN pip install --upgrade pip && pip install -r requirements.txt
 
 # Skopiowanie apki
 COPY . .
+
+COPY ./healthchecking.sh .
+
+RUN chmod +x /usr/src/app/healthchecking.sh
+
+ENTRYPOINT [ "/usr/src/app/healthchecking.sh" ]

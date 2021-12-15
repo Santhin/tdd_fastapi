@@ -9,3 +9,17 @@ services:
     environment:
       - ENVIRONMENT=dev
       - TESTING=0
+      - DATABASE_STAGE_URL=postgres://root:password@db:5432/stage
+      - DATABASE_TEST_URL=postgres://root:password@db:5432/test
+    depends_on:
+      - db
+  db:
+    build: 
+      context: ./db
+      dockerfile: Dockerfile # Nazwa pliku z dockerowego
+    expose: 
+      - 5432
+    environment:
+      - POSTGRES_USER=root
+      - POSTGRES_PASSWORD=password    
+  
