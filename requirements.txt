@@ -2,3 +2,4 @@ fastapi==0.70
 uvicorn==0.15
 asyncpg==0.25
 tortoise_orm==0.17.8
+fastapi-crudrouter==0.8.4
