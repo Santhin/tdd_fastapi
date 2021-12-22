@@ -13,6 +13,7 @@ services:
       - DATABASE_TEST_URL=postgres://root:password@db:5432/test
     depends_on:
       - db
+
   db:
     build: 
       context: ./db

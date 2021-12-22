@@ -8,7 +8,7 @@ register_tortoise(
     app,
     db_url=DATABASE_STAGE_URL,
     modules={"models": ["app.models"]},
-    generate_schemas=True,
+    generate_schemas=False,
     add_exception_handlers=True,
 )
 
@@ -18,6 +18,5 @@ async def ping(settings: Settings = Depends(get_settings)):
         "ping": "pong",
         "environment": settings.environment,
         "testing": settings.testing,
-        "database_stage_url": settings.database_stage_url,
-        "database_dev_url" : settings.database_test_url
+        "database_stage_url": settings.database_url,
         }

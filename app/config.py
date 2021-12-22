@@ -22,8 +22,7 @@ TESTING = os.getenv("TESTING", 0)
 class Settings(BaseSettings):
     environment: str = ENVIRONMENT
     testing: bool = TESTING
-    database_stage_url: AnyUrl =  DATABASE_STAGE_URL
-    database_test_url: AnyUrl =  DATABASE_TEST_URL
+    database_url: AnyUrl =  DATABASE_STAGE_URL
 
 
 @lru_cache()
