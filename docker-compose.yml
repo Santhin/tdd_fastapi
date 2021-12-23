@@ -2,25 +2,33 @@ version: '3.9'
 
 services:
   tdd-services:
-    build: .
+    build:
+      context: ./src
+      dockerfile: Dockerfile
     command: uvicorn app.main:app --reload --host 0.0.0.0 --port 8000 --workers 1
     ports:
       - 8000:8000
+    env_file:
+      - .env
     environment:
-      - ENVIRONMENT=dev
-      - TESTING=0
-      - DATABASE_STAGE_URL=postgres://root:password@db:5432/stage
-      - DATABASE_TEST_URL=postgres://root:password@db:5432/test
+      - DATABASE_URL=postgres://${POSTGRES_USER}:${POSTGRES_PASSWORD}@db:5432/stage
+      - DATABASE_URL_TEST=postgres://${POSTGRES_USER}:${POSTGRES_PASSWORD}@db:5432/test
+    volumes:
+      - ./src/:/usr/src/app
     depends_on:
-      - db
-    
+      db:
+        condition: service_healthy
   db:
-    build: 
-      context: ./db
+    build:
+      context: ./src/db
       dockerfile: Dockerfile # Nazwa pliku z dockerowego
-    expose: 
-      - 5432
+    ports:
+      - 5432:5432
     environment:
-      - POSTGRES_USER=root
-      - POSTGRES_PASSWORD=password    
-  
+      - POSTGRES_USER=${POSTGRES_USER}
+      - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
+    healthcheck:
+      test: [ "CMD-SHELL", "pg_isready" ]
+      interval: 10s
+      timeout: 5s
+      retries: 5

@@ -22,8 +22,8 @@ RUN pip install --upgrade pip && pip install -r requirements.txt
 # Skopiowanie apki
 COPY . .
 
-COPY ./healthchecking.sh .
+# COPY ./healthchecking.sh .
 
-RUN chmod +x /usr/src/app/healthchecking.sh
+# RUN chmod +x /usr/src/app/healthchecking.sh
 
-ENTRYPOINT [ "/usr/src/app/healthchecking.sh" ]
+# ENTRYPOINT [ "/usr/src/app/healthchecking.sh" ]

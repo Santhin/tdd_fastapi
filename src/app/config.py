@@ -13,16 +13,15 @@ log = logging.getLogger("uvicorn")
 
 
 
-DATABASE_STAGE_URL = os.getenv('DATABASE_STAGE_URL')
-DATABASE_TEST_URL = os.getenv('DATABASE_TEST_URL')
-
-ENVIRONMENT = os.getenv('ENVIRONMENT', 'dev')
-TESTING = os.getenv("TESTING", 0)
+DATABASE_URL = os.getenv('DATABASE_URL')
+DATABASE_URL_TEST = os.getenv('DATABASE_URL_TEST')
+ENVIRONMENT = os.getenv('ENVIRONMENT')
+TESTING = os.getenv("TESTING")
 
 class Settings(BaseSettings):
     environment: str = ENVIRONMENT
     testing: bool = TESTING
-    database_url: AnyUrl =  DATABASE_STAGE_URL
+    database_url: AnyUrl =  DATABASE_URL
 
 
 @lru_cache()
