@@ -1,9 +1,9 @@
 
-from .config import DATABASE_STAGE_URL
+from .config import DATABASE_URL
 
 
 TORTOISE_ORM = {
-    "connections": {"default": DATABASE_STAGE_URL},
+    "connections": {"default": DATABASE_URL},
     "apps": {
         "models": {
             "models": ["app.models", "aerich.models"],

@@ -1,12 +1,12 @@
 from fastapi import FastAPI, Depends
 from tortoise.contrib.fastapi import register_tortoise
-from .config import get_settings, Settings, DATABASE_STAGE_URL
+from .config import get_settings, Settings, DATABASE_URL
 
 app = FastAPI()
 
 register_tortoise(
     app,
-    db_url=DATABASE_STAGE_URL,
+    db_url=DATABASE_URL,
     modules={"models": ["app.models"]},
     generate_schemas=False,
     add_exception_handlers=True,
@@ -18,5 +18,5 @@ async def ping(settings: Settings = Depends(get_settings)):
         "ping": "pong",
         "environment": settings.environment,
         "testing": settings.testing,
-        "database_stage_url": settings.database_url,
+        "database_url": settings.database_url,
         }
