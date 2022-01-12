@@ -12,10 +12,13 @@ class Blog(models.Model):
 
 class Post(models.Model):
     id = fields.UUIDField(pk=True)
-    blog = fields.ForeignKeyField('models.Blog', related_name='posts') # blog_id <- Blog.id
+    blog = fields.ForeignKeyField(
+        "models.Blog", related_name="posts"
+    )  # blog_id <- Blog.id
     text = fields.TextField()
     created_at = fields.DatetimeField(auto_now_add=True)
     updated_at = fields.DatetimeField(auto_now_add=True)
 
-# Migration Table -> wersja 
-# 321312-data-nazwa 
+
+# Migration Table -> wersja
+# 321312-data-nazwa
