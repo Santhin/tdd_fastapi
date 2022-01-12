@@ -1,16 +1,22 @@
 from fastapi import FastAPI, Depends
-from tortoise.contrib.fastapi import register_tortoise
-from .config import get_settings, Settings, DATABASE_STAGE_URL
+from .config import get_settings, Settings, log
+from .db import init_db
+
+
+
 
 app = FastAPI()
 
-register_tortoise(
-    app,
-    db_url=DATABASE_STAGE_URL,
-    modules={"models": ["app.models"]},
-    generate_schemas=True,
-    add_exception_handlers=True,
-)
+@app.on_event("startup")
+def startup_event():
+    init_db(app)
+    log.info("Starting FastAPI")
+    
+
+@app.on_event("shutdown")
+def shutdown_event():
+    log.info("Shutting down FastAPI")
+
 
 @app.get("/health", tags=['health'], status_code=200)
 async def ping(settings: Settings = Depends(get_settings)):
