@@ -1,4 +1,5 @@
 from tortoise import fields, models
+from tortoise.contrib.pydantic import pydantic_model_creator
 
 
 class Blog(models.Model):
@@ -20,5 +21,5 @@ class Post(models.Model):
     updated_at = fields.DatetimeField(auto_now_add=True)
 
 
-# Migration Table -> wersja
-# 321312-data-nazwa
+BlogSchema = pydantic_model_creator(Blog)
+PostSchema = pydantic_model_creator(Post)
