@@ -1,32 +1,51 @@
 # TDD FASTAPI example
 
 ## Environment Variables
-| Variable Name                    | Suggested development value        | Description
-|----------------------------------|------------------------------------|------------
-|STAGE                             | stage                              | Deployment stage
-|TESTING                           | 0                                  | Testing flag 
-|POSTGRES_USER                     | root                               | Postgres user name
-|POSTGRES_PASSWORD                 | password                           | Postgres password
 
+| Variable Name     | Suggested development value | Description        |
+| ----------------- | --------------------------- | ------------------ |
+| ENVIRONMENT       | dev                         | Deployment stage   |
+| TESTING           | 0                           | Testing flag       |
+| POSTGRES_USER     | root                        | Postgres user name |
+| POSTGRES_PASSWORD | password                    | Postgres password  |
+
+### How to create .env file
+
+Create a .env file in the root of your project
+
+```
+touch .env # create a new .env file
+vim .env # open the .env file in the vim
+```
+
+You can then add your environment variables like this:
+
+```
+ENVIRONMENT=dev
+TESTING=0
+POSTGRES_USER=root
+POSTGRES_PASSWORD=password
+```
 
 ## Usage <a name = "usage"></a>
 
+Local
 
-Local 
 ```
-docker compose up --build
+make build
 ```
+
 Tests
+
 ```
-docker compose -f docker-compose.yml run tdd-services pytest -vv
+make tests
 ```
 
 ### Aerich
 
 Initialize the config file and migrations location:
-```
-docker compose -f docker-compose.yml run tdd-services aerich init -t app.db.TORTOISE_ORM
-```
 
-
-aerich init-db
+```
+make aeirich init
+make aeirich init-db
+```
